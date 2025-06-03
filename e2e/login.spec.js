@@ -15,9 +15,9 @@ test.describe("Login Page Test", () => {
       await login('standard_user', 'srcretsauce');
       await expect(page.locator('[data-test="error"]')).toBeVisible();
   })
-  test('Login with no password', async ({ page }) => {
-    await login('', '');
-    await expect(page.locator('[data-test="error"]')).toBeVisible();
+  test('Login with locked out user', async ({ page }) => {
+    await login('locked_out_user', 'secret_sauce');
+    await expect(page.locator("text=Epic sadface: Sorry, this user has been locked out.")).toBeVisible();
   }
   
 
