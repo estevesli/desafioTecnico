@@ -20,6 +20,14 @@ test.describe("Login Page Test", () => {
     await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
     await expect(page.locator('text=1')).toBeVisible();
   });
-
+    test('Remove from cart', async ({ page }) => {
+    await page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]').click();
+    await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    const cartPage = page.locator('text=QTY');
+    await cartPage.waitFor({ state: 'visible', timeout: 5000 });
+    await page.locator('button[data-test="remove-sauce-labs-backpack"]').click();
+    await expect(page.locator('text=Sauce Labs Backpack')).toHaveCount(0);
+});
 
 });
