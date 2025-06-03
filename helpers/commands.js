@@ -1,4 +1,4 @@
-export default {login, checkoutInformation};
+export default{login, checkoutInformation};
 async function login(page,email, password){
     await page.locator('input[data-test="username"]').fill(email);
     await page.locator('input[data-test="password"]').fill(password);
