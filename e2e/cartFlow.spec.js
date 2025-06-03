@@ -12,7 +12,8 @@ test.describe("Login Page Test", () => {
     await page.locator('[data-test="inventory-item-name"]', { hasText: 'Sauce Labs Bike Lights' }).click();
     const backButton = page.locator('[data-test="back-to-products"]');
     await backButton.waitFor({ state: 'visible', timeout: 5000 });
-    await page.locator('input[data-test="back-to-products"]').click();
+    await page.locator('.bm-burger-button').click();
+    await page.locator('[data-test="inventory-sidebar-link"]').click();
      await expect(page.locator("text=Products")).toBeVisible();
   });
   test('Add to cart through product page', async ({ page }) => {
