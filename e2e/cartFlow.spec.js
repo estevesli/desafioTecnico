@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import {login} from "../helpers/commands";
+import {login, checkoutInformation} from "../helpers/commands";
 
 test.describe("Login Page Test", () => {
   test.beforeEach(async ({ page }) => {
@@ -29,5 +29,13 @@ test.describe("Login Page Test", () => {
     await page.locator('button[data-test="remove-sauce-labs-backpack"]').click();
     await expect(page.locator('text=Sauce Labs Backpack')).toHaveCount(0);
 });
-
+test('Checkout with valid credentials',async ({ page }) => {
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    const cartPage = page.locator('text=QTY');
+    await cartPage.waitFor({ state: 'visible', timeout: 5000 });
+    await page.locator('[data-test="checkout"]').click();
+    await checkoutInformation(page, 'Lívia', 'Santos', '04916000');
+    await page.locator('[data-test="continue"]').click();
+    await expect (page.locator('text=Payment Information')).toBeVisible();
+});
 });
