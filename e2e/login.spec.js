@@ -22,6 +22,6 @@ test.describe("Login Page Test", () => {
   test('Login with no credentials', async ({ page }) => {
     await login('', '');
     await expect(page.locator('[data-test="error"]')).toBeVisible();
-  }
+  })
 
 });
