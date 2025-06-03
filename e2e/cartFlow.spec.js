@@ -40,20 +40,23 @@ test.describe("Login Page Test", () => {
   });
 
   test("Checkout with valid credentials", async ({ page }) => {
+    const cartScreen= page.locator("text=QTY");
+    const checkoutScreen= page.locator('text=Your Information');
     await page.locator('[data-test="shopping-cart-link"]').click();
-    const cartPage = page.locator("text=QTY");
-    await cartPage.waitFor({ state: "visible", timeout: 5000 });
-    await page.locator('[data-test="checkout"]').click();
+    await cartScreen.waitFor({ state: "visible", timeout: 2000 });
+    await page.locator('button[data-test="checkout"]').click();
+    await checkoutScreen.waitFor({ state: 'visible', timeout: 2000 });
     await commands.checkoutInformation(page, "Lívia", "Santos", "04916000");
-    await page.locator('[data-test="continue"]').click();
     await expect(page.locator("text=Payment Information")).toBeVisible();
   });
 
   test("Checkout with no credentials", async ({ page }) => {
+    const cartScreen = page.locator("text=QTY");
+    const checkoutScreen= page.locator('text=Your Information');
     await page.locator('[data-test="shopping-cart-link"]').click();
-    const cartPage = page.locator("text=QTY");
-    await cartPage.waitFor({ state: "visible", timeout: 5000 });
-    await page.locator('[data-test="checkout"]').click();
+    await cartScreen.waitFor({ state: "visible", timeout: 2000 });
+    await page.locator('button[data-test="checkout"]').click();
+    await checkoutScreen.waitFor({ state: 'visible', timeout: 2000 });
     await page.locator('[data-test="continue"]').click();
     await expect(page.locator('[data-test="error"]')).toBeVisible();
   });
