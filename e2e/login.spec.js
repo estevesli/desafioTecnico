@@ -11,5 +11,9 @@ test.describe("Login Page Test", () => {
     await login("standard_user", "secret_sauce");
     await expect(page.locator("text=Products")).toBeVisible();
   });
-  
+  test("Login with invalid credentials", async ({ page }) => {
+      await login('problem_user', 'srcretsauce');
+      await expect(page.locator('[data-test="error"]')).toBeVisible();
+  })
+
 });
