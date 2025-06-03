@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import {login, addToCart} from "../helpers/commands";
+import {login} from "../helpers/commands";
 
 test.describe("Login Page Test", () => {
   test.beforeEach(async ({ page }) => {
@@ -12,7 +12,8 @@ test.describe("Login Page Test", () => {
     await page.locator('[data-test="inventory-item-name"]', { hasText: 'Sauce Labs Backpack' }).click();
     const backButton = page.locator('[data-test="back-to-products"]');
     await backButton.waitFor({ state: 'visible', timeout: 5000 });
-    await addToCart(page);
+    await page.locator('button[data-test="add-to-cart"]').click();
     await page.locator('input[data-test="back-to-products"]').click();
+    await expect(page.locator("text=Products")).toBeVisible();
   })
 });

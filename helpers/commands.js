@@ -5,6 +5,3 @@ async function login(page,email, password){
     await page.locator('input[data-test="login-button"]').click();
 
 }
-async function addToCart(page){
-    await page.locator('[data-test="add-to-cart"]').click();
-}
