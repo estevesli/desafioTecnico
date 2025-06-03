@@ -27,7 +27,7 @@ test.describe("Login Page Test", () => {
 
   test("Add to cart through product list", async ({ page }) => {
     await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
-    await expect(page.locator("text=1")).toBeVisible();
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText("1");
   });
 
   test("Remove from cart", async ({ page }) => {
