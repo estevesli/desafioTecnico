@@ -12,8 +12,13 @@ test.describe("Login Page Test", () => {
     await expect(page.locator("text=Products")).toBeVisible();
   });
   test("Login with invalid credentials", async ({ page }) => {
-      await login('problem_user', 'srcretsauce');
+      await login('standard_user', 'srcretsauce');
       await expect(page.locator('[data-test="error"]')).toBeVisible();
   })
+  test('Login with no password', async ({ page }) => {
+    await login('', '');
+    await expect(page.locator('[data-test="error"]')).toBeVisible();
+  }
+  
 
 });
