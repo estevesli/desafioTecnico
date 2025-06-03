@@ -22,18 +22,20 @@ test.describe("Login Page Test", () => {
     const backButton = page.locator('[data-test="back-to-products"]');
     await backButton.waitFor({ state: "visible", timeout: 2000 });
     await page.locator('button[data-test="add-to-cart"]').click();
-    await expect(page.locator("text=1")).toBeVisible();
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await expect(page.locator('text=Sauce Labs Backpack').first()).toBeVisible();
   });
 
   test("Add to cart through product list", async ({ page }) => {
     await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
-    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText("1");
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await expect(page.locator('text=Sauce Labs Bolt T-Shirt').first()).toBeVisible();
   });
 
   test("Remove from cart", async ({ page }) => {
+    const cartScreen = page.locator("text=QTY");
     await page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]').click();
     await page.locator('[data-test="shopping-cart-link"]').click();
-    const cartScreen = page.locator("text=QTY");
     await cartScreen.waitFor({ state: "visible", timeout: 2000 });
     await page.locator('button[data-test="remove-sauce-labs-backpack"]').click();
     await expect(page.locator("text=Sauce Labs Backpack")).not.toBeVisible();
