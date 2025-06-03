@@ -38,4 +38,12 @@ test('Checkout with valid credentials',async ({ page }) => {
     await page.locator('[data-test="continue"]').click();
     await expect (page.locator('text=Payment Information')).toBeVisible();
 });
+test('Checkout with no credentials', async ({ page }) => {
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    const cartPage = page.locator('text=QTY');
+    await cartPage.waitFor({ state: 'visible', timeout: 5000 });
+    await page.locator('[data-test="checkout"]').click();
+    await page.locator('[data-test="continue"]').click();
+    await expect(page.locator('[data-test="error"]')).toBeVisible();
+});
 });
