@@ -16,5 +16,10 @@ test.describe("Login Page Test", () => {
     await page.locator('input[data-test="back-to-products"]').click();
     await expect(page.locator("text=Products")).toBeVisible();
   })
-  
+  test('Add to cart through product list', async ({ page }) => {
+    await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
+    await expect(page.locator('text=1')).toBeVisible();
+  });
+
+
 });
