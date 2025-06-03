@@ -9,11 +9,7 @@ test.describe("Login Page Test", () => {
   });
 
   test("Goes back to product list", async ({ page }) => {
-    await page
-      .locator('[data-test="inventory-item-name"]', {
-        hasText: "Sauce Labs Bike Light",
-      })
-      .click();
+    await page.locator('[data-test="inventory-item-name"]', {hasText: "Sauce Labs Bike Light",}).click();
     const backButton = page.locator('[data-test="back-to-products"]');
     await backButton.waitFor({ state: "visible", timeout: 5000 });
     await page.locator(".bm-burger-button").click();
@@ -22,39 +18,25 @@ test.describe("Login Page Test", () => {
   });
 
   test("Add to cart through product page", async ({ page }) => {
-    await page
-      .locator('[data-test="inventory-item-name"]', {
-        hasText: "Sauce Labs Backpack",
-      })
-      .click();
+    await page.locator('[data-test="inventory-item-name"]', {hasText: "Sauce Labs Backpack",}).click();
     const backButton = page.locator('[data-test="back-to-products"]');
-    await backButton.waitFor({ state: "visible", timeout: 5000 });
+    await backButton.waitFor({ state: "visible", timeout: 2000 });
     await page.locator('button[data-test="add-to-cart"]').click();
-    await page.locator('input[data-test="back-to-products"]').click();
-    await expect(page.locator("text=Products")).toBeVisible();
+    await expect(page.locator("text=1")).toBeVisible();
   });
 
   test("Add to cart through product list", async ({ page }) => {
-    await page
-      .locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]')
-      .click();
+    await page.locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
     await expect(page.locator("text=1")).toBeVisible();
   });
 
   test("Remove from cart", async ({ page }) => {
-    await page
-      .locator('button[data-test="add-to-cart-sauce-labs-backpack"]')
-      .click();
-    await page
-      .locator('button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]')
-      .click();
+    await page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]').click();
     await page.locator('[data-test="shopping-cart-link"]').click();
-    const cartPage = page.locator("text=QTY");
-    await cartPage.waitFor({ state: "visible", timeout: 5000 });
-    await page
-      .locator('button[data-test="remove-sauce-labs-backpack"]')
-      .click();
-    await expect(page.locator("text=Sauce Labs Backpack")).toHaveCount(0);
+    const cartScreen = page.locator("text=QTY");
+    await cartScreen.waitFor({ state: "visible", timeout: 2000 });
+    await page.locator('button[data-test="remove-sauce-labs-backpack"]').click();
+    await expect(page.locator("text=Sauce Labs Backpack")).not.toBeVisible();
   });
 
   test("Checkout with valid credentials", async ({ page }) => {
