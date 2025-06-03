@@ -23,5 +23,11 @@ test.describe("Login Page Test", () => {
     await login('', '');
     await expect(page.locator('[data-test="error"]')).toBeVisible();
   })
+  test(('Logout'), async ({ page }) => {
+    await login('standard_user', 'secret_sauce');
+    await page.locator('.bm-burger-button').click();
+    await page.locator('[data-test="logout-sidebar-link"]').click();
+    await expect(page.locator('input[data-test="login-button"]')).toBeVisible();
+    })
 
 });
